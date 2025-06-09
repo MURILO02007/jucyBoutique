@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta nome="theme-color" content="#b8024d">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique Da Jucy</title>
+  <link rel="icon" href="img/logoJucy.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background-color: var(--cor-fundo);
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      color: var(--cor-texto);
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    .logo {
+      border: 3px solid var(--cor-secundaria);
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .zap {
+      position: absolute;
+      left: 200px;
+      width: 50px;
+      height: 50px;
+      transition: transform 0.3s;
+      filter: brightness(0) invert(1);
+    }
+
+    .zap:hover {
+      transform: scale(1.1);
+    }
+    
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+        height: auto;
+    }
+
+    .item {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        background: white;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+    }
+
+    .item:hover {
+        transform: translateY(-5px);
+        background-color: #b8024e7f;
+    }
+
+    .item img {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .item p {
+        margin: 8px 0;
+        color: #333;
+    }
+
+    .botao-ver {
+        display: inline-block;
+        background-color: #b8024d;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        text-decoration: none;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+    }
+
+    .botao-ver:hover {
+        background-color: #9a0242;
+    }
+    
+    .menu-btn {
+      position: absolute;
+      right: 200px;
+      top: 30px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #ffffff;
+      transition: right 0.3s;
+      z-index: 1002;
+      padding: 20px;
+      color: white;
+    }
+    
+    .sidebar.active {
+      right: 0;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: rgb(31, 31, 31);
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .menubutao, .butao2 {
+      display: block;
+      text-decoration: none;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      transition:  0.3s;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1001;
+      display: none;
+    }
+    
+    .overlay.active {
+      display: block;
+    }
+
+    .categorias {
+      padding: 10px 0;
+      text-align: center;
+    }
+    
+    .categorias ul {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    
+    .categorias li {
+      margin: 5px;
+    }
+    
+    .categorias a {
+      display: inline-block;
+      padding: 8px 15px;
+      text-decoration: none;
+      color: #333;
+      border-radius: 50px;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    
+    .categorias a.active {
+      background-color: #b8024d;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        color: white;
+        padding: 20px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 120px;
+      }
+      
+      .logo {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .zap {
+        width: 35px;
+        height: 35px;
+        left: 20px;
+      }
+      
+      .container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        padding: 15px;
+      }
+      
+      .item img {
+        height: 200px;
+      }
+
+      .categorias {
+        overflow-x: auto;
+        white-space: nowrap;
+        text-align: left;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .categorias ul {
+        display: inline-block;
+        white-space: nowrap;
+        width: auto;
+        padding: 0 10px;
+      }
+      
+      .categorias li {
+        display: inline-block;
+      }
+
+      .menu-btn {
+        position: absolute;
+        right: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .logo {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .container {
+        grid-template-columns: 1fr;
+      }
+      
+      .categorias a {
+        padding: 6px 12px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img class="zap" src="img/whatsapp.png" alt="WhatsApp">
+    <img class="logo" src="img/Design sem nome (1).png" alt="Logo Boutique Da Jucy">
+    <button id="menu-btn" class="menu-btn">☰ Menu</button>
+
+    <!-- Menu lateral -->
+    <div id="sidebar" class="sidebar">
+      <button class="close-btn" id="close-btn">×</button>
+      <h3>Menu</h3>
+      <a class="menubutao" href="index.html">🏠 Home</a>
+      <a class="menubutao" href="sobre.html">🎪 Sobre Nós</a>
+      <a class="menubutao" href="cadastro.html">📝 Cadastrar</a>
+      <a class="butao2" href="admin.html">🔐 Área do Adm</a>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+  </header>
+
+  <div class="categorias">
+    <ul>
+      <li><a class="tipo" href="#" onclick="filtrarProdutos('todas')">🎉 Todas</a></li>
+      <li><a class="tipo" href="#" onclick="filtrarProdutos('vestidos')">👗 Vestidos</a></li>
+      <li><a class="tipo" href="#" onclick="filtrarProdutos('blusas')">👚 Blusas</a></li>
+      <li><a class="tipo" href="#" onclick="filtrarProdutos('calcas')">👖 Calças</a></li>
+      <li><a class="tipo" href="#" onclick="filtrarProdutos('saias')">💃 Saias</a></li>
+      <li><a class="tipo" href="#" onclick="filtrarProdutos('acessorios')">🎀 Acessórios</a></li>
+    </ul>
+  </div>
+
+  <div class="container" id="produtos-container">
+    <!-- Produtos serão carregados aqui -->
+  </div>
+
+  <script>
+    // Menu Mobile
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.getElementById('menu-btn');
+      const sidebar = document.getElementById('sidebar');
+      const closeBtn = document.getElementById('close-btn');
+      const overlay = document.getElementById('overlay');
+
+      menuBtn.addEventListener('click', function() {
+          sidebar.classList.add('active');
+          overlay.classList.add('active');
+      });
+
+      closeBtn.addEventListener('click', function() {
+          sidebar.classList.remove('active');
+          overlay.classList.remove('active');
+      });
+
+      overlay.addEventListener('click', function() {
+          sidebar.classList.remove('active');
+          overlay.classList.remove('active');
+      });
+    });
+
+    // Carrega produtos do localStorage
+    function carregarProdutosDoLocalStorage() {
+      const produtosSalvos = localStorage.getItem('produtos');
+      if (produtosSalvos) {
+        try {
+          const produtos = JSON.parse(produtosSalvos);
+          if (Array.isArray(produtos) && produtos.length > 0) {
+            return produtos;
+          }
+        } catch (e) {
+          console.error("Erro ao ler produtos do localStorage:", e);
+        }
+      }
+      return [];
+    }
+
+    // Exibe os produtos na página
+    function carregarProdutos(produtosParaExibir) {
+      const container = document.getElementById('produtos-container');
+      container.innerHTML = '';
+
+      if (produtosParaExibir.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+            <p style="font-size: 1.2rem; color: var(--cor-primaria);">Nenhum produto encontrado nesta categoria!</p>
+            <p style="margin-top: 1rem;">Que tal dar uma olhada em nossas outras seções?</p>
+          </div>
+        `;
+        return;
+      }
+
+      produtosParaExibir.forEach(produto => {
+        container.innerHTML += `
+          <div class="item">
+            <img src="${produto.imagem}" alt="Produto ${produto.id}">
+            <p>R$ ${produto.preco.toFixed(2)}</p>
+            <p>${produto.categoria.charAt(0).toUpperCase() + produto.categoria.slice(1)}</p>
+            <a href="produto.html?id=${produto.id}" class="botao-ver">Ver</a>
+          </div>
+        `;
+      });
+    }
+
+    // Filtra produtos por categoria
+    function filtrarProdutos(categoria) {
+      const todosProdutos = carregarProdutosDoLocalStorage();
+      
+      document.querySelectorAll('.categorias a').forEach(a => {
+        a.classList.remove('active');
+      });
+      
+      if (categoria === 'todas') {
+        carregarProdutos(todosProdutos);
+        document.querySelector('.categorias a[onclick="filtrarProdutos(\'todas\')"]').classList.add('active');
+      } else {
+        const produtosFiltrados = todosProdutos.filter(produto => produto.categoria === categoria);
+        carregarProdutos(produtosFiltrados);
+        document.querySelector(`.categorias a[onclick="filtrarProdutos('${categoria}')"]`).classList.add('active');
+      }
+    }
+
+    // Carrega os produtos quando a página é aberta
+    document.addEventListener('DOMContentLoaded', () => {
+      const produtos = carregarProdutosDoLocalStorage();
+      carregarProdutos(produtos);
+      filtrarProdutos('todas'); // Mostra todos os produtos por padrão
+    });
+
+    // Observa mudanças no localStorage
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'produtos') {
+        const produtos = carregarProdutosDoLocalStorage();
+        carregarProdutos(produtos);
+      }
+    });
+
+    // Atualiza quando voltar da página admin
+    window.addEventListener('pageshow', () => {
+      const produtos = carregarProdutosDoLocalStorage();
+      carregarProdutos(produtos);
+    });
+  </script>
+</body>
+</html>

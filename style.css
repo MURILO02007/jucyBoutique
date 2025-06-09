@@ -1,0 +1,373 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+body {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+    font-family: Arial, sans-serif;
+    background-color: #f700ff1c;
+    color: #333;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+header {
+    background-color: #b8024d;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+}
+
+
+
+
+
+ul {
+    margin-top: 20px;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    gap: 20px;
+}
+
+
+
+a.tipo{
+    z-index: 10000;
+    border: 2px solid #b8024d;
+    padding: 5px 10px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #b8024d;
+    font-size: 18px;
+}
+
+
+a.tipo:hover {
+     z-index: 10000;
+    background-color: #b8024d;
+    color: #ffdfec;
+}
+
+a.menubutao {
+  margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    
+    font-size: 20px;
+}
+
+a.butao2 {
+    position: absolute;
+    bottom: 20px;
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 10px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    height: 400px;
+}
+
+
+
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+    text-align: center;
+    height: 530px;
+    transition: transform 0.3s ease;
+}
+
+.item:hover {
+    transform: translateY(-10px);
+}
+
+.item img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+h3 {
+    color: #b8024d;
+    margin: 10px 0;
+}
+
+p {
+    font-size: 20px;
+    color: #666;
+}
+
+a.botao-ver {
+    text-decoration: none;
+    width: 50%;
+    margin-top: 20px;
+    background-color: #b8024d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+a.botao-ver:hover {
+    background-color: #ff3183;
+    color: #ffffff;
+}
+
+
+
+/* (Adicione todo o CSS do exemplo anterior aqui) */
+
+/* Novos estilos para a página de produto */
+.produto-detalhe {
+  display: flex;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
+  gap: 40px;
+}
+
+.produto-imagem {
+  flex: 1;
+}
+
+.produto-imagem img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.produto-info {
+  flex: 1;
+  padding: 20px;
+}
+
+.tamanhos, .cores {
+  margin: 20px 0;
+}
+
+.tamanhos select, .cores select {
+  padding: 8px 12px;
+  margin-left: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.erro {
+  text-align: center;
+  padding: 50px;
+}
+
+.botao-voltar {
+  display: inline-block;
+  margin-top: 20px;
+  color: #ff6b81;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .produto-detalhe {
+    flex-direction: column;
+  }
+}
+
+
+/* Estilos da Área Admin */
+.admin-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-produto {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #b8024d;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.botao-cadastrar {
+    background-color: #b8024d;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.botao-cadastrar:hover {
+    background-color: #ff3183;
+}
+
+/* Botão que abre o menu */
+.menu-btn {
+    position: absolute;
+    
+    right: 200px;
+    background-color: #b8024d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 1000;
+}
+
+.menu-btn:hover {
+    color: #f8b9d2;
+}
+
+a .butao2 {
+  background-color: #66666600;
+    text-decoration: none;
+    color: white;
+}
+
+a .butao2:hover {
+  background-color: #66666600;
+    text-decoration: none;
+    color: white;
+}
+
+/* Menu lateral (escondido por padrão) */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Esconde o menu */
+    width: 300px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease;
+    z-index: 1001;
+    padding: 20px;
+}
+
+.sidebar.active {
+    right: 0; /* Mostra o menu */
+}
+
+/* Botão de fechar */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Overlay (fundo escuro) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* Estilos do conteúdo do menu */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+.sidebar li {
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+}
+
+.sidebar a:hover {
+    color: #b8024d;
+}
+
+.voltar {
+    width: 200px;
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: #b8024d;
+    font-size: 30px;
+    text-decoration: none;
+    position: relative;
+    left: 700px;
+    bottom: 40px;
+}

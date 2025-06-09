@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produto - Boutique Da Jucy</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Adicione estilos para a página de produto */
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #f9f3f6;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .produto-detalhe {
+      display: flex;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    
+    .produto-imagem {
+      flex: 1;
+      padding: 20px;
+    }
+    
+    .produto-imagem img {
+      width: 100%;
+      max-height: 500px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    
+    .produto-info {
+      flex: 1;
+      padding: 20px;
+    }
+    
+    .preco {
+      color: #b8024d;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 1rem 0;
+    }
+    
+    .botao-comprar {
+      background-color: #b8024d;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s;
+    }
+    
+    .botao-comprar:hover {
+      background-color: #9a0242;
+      transform: scale(1.05);
+    }
+    
+    .voltar {
+      display: block;
+      text-align: center;
+      margin: 20px auto;
+      color: #b8024d;
+      text-decoration: none;
+      font-size: 1.1rem;
+      max-width: 1200px;
+    }
+    
+    @media (max-width: 768px) {
+      .produto-detalhe {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Boutique Da Jucy</h1>
+  </header>
+
+  <main class="produto-detalhe" id="produto-container">
+    <!-- Conteúdo carregado via JavaScript -->
+  </main>
+  
+  <a href="index.html" class="voltar">← Voltar para a loja</a>
+
+  <script>
+    // Carrega o produto do localStorage baseado no ID da URL
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const produtoId = parseInt(urlParams.get('id'));
+      
+      // Carrega produtos do localStorage
+      const produtosSalvos = localStorage.getItem('produtos');
+      let produtos = [];
+      
+      if (produtosSalvos) {
+        try {
+          produtos = JSON.parse(produtosSalvos);
+        } catch (e) {
+          console.error("Erro ao carregar produtos:", e);
+        }
+      }
+      
+      const produto = produtos.find(p => p.id === produtoId);
+
+      if (produto) {
+        document.getElementById('produto-container').innerHTML = `
+          <div class="produto-imagem">
+            <img src="${produto.imagem}" alt="${produto.nome || 'Produto sem nome'}" 
+                 onerror="this.src='img/sem-imagem.jpg'">
+          </div>
+          <div class="produto-info">
+            <h1>${produto.nome || 'Produto sem nome'}</h1>
+            <p class="preco">R$ ${produto.preco?.toFixed(2) || '0,00'}</p>
+            <p class="descricao">${produto.descricao || 'Descrição não disponível'}</p>
+            
+            <div class="tamanhos">
+              <label>Tamanho:</label>
+              <select>
+                ${(produto.tamanhos || ['Único']).map(t => `<option value="${t}">${t}</option>`).join('')}
+              </select>
+            </div>
+            
+            <div class="cores">
+              <label>Cor:</label>
+              <select>
+                ${(produto.cores || ['Única']).map(c => `<option value="${c}">${c}</option>`).join('')}
+              </select>
+            </div>
+            
+            <button class="botao-comprar">Adicionar ao Carrinho</button>
+          </div>
+        `;
+      } else {
+        document.getElementById('produto-container').innerHTML = `
+          <div class="erro">
+            <h2>Produto não encontrado</h2>
+            <p>O produto solicitado não está mais disponível.</p>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
