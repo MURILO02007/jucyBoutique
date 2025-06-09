@@ -348,17 +348,15 @@
         if (!editando && imagemInput.files.length === 0) return alert('Por favor, selecione uma imagem!');
 
         try {
-            let imagemUrl = produtoEditando?.imagem ?? null;
+            let imagemBase64 = null;
+            if (imagemInput.files.length > 0) {
+                imagemBase64 = await getBase64(imagemInput.files[0]);
+            }
 
-if (imagemInput.files.length > 0) {
-    imagemUrl = await uploadImagem(imagemInput.files[0]);
-}
-
-const produto = {
-    preco,
-    categoria,
-    imagem: imagemUrl,
-
+            const produto = {
+                preco,
+                categoria,
+                imagem: imagemBase64 || (produtoEditando?.imagem ?? null),
                 dataCadastro: editando && produtoEditando ? produtoEditando.dataCadastro : new Date().toISOString()
             };
 
@@ -432,25 +430,57 @@ const produto = {
         atualizarListaProdutos();
     });
 
-    async function uploadImagem(file) {
-    const nomeArquivo = `${Date.now()}_${file.name}`;
-    const { data, error } = await supabase
-        .storage
-        .from('produtos')
-        .upload(nomeArquivo, file);
+    async function uploadImagemEObterURL(file) {
+  const fileName = `${Date.now()}-${file.name}`; // cria nome único
+  
+  // Faz o upload
+  const { data, error } = await supabase.storage
+    .from("produtos")
+    .upload(fileName, file, {
+      cacheControl: "3600",
+      upsert: false,
+    });
 
-    if (error) throw error;
+  if (error) {
+    console.error("Erro ao fazer upload:", error.message);
+    return null;
+  }
 
-    const { data: urlData } = supabase
-        .storage
-        .from('produtos')
-        .getPublicUrl(nomeArquivo);
+  // Gera a URL pública
+  const { data: publicUrlData } = supabase
+    .storage
+    .from("produtos")
+    .getPublicUrl(fileName);
 
-    return urlData.publicUrl;
+  return publicUrlData.publicUrl; // aqui está a URL acessível
 }
 
-<small id="imagem-atual-texto" style="display: none;">Imagem atual será mantida</small>
+document.getElementById("imagemInput").addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
 
+  const imageUrl = await uploadImagemEObterURL(file);
+
+  if (imageUrl) {
+    console.log("Imagem pública:", imageUrl);
+
+    // Agora você pode salvar no banco:
+    const { error } = await supabase
+      .from("produtos")
+      .insert({
+        preco: 49.90,
+        imagem: imageUrl, // salva a URL pública
+      });
+
+    if (error) {
+      console.error("Erro ao salvar produto:", error.message);
+    } else {
+      alert("Produto salvo com sucesso!");
+    }
+  }
+});
+
+    
 </script>
 
 </body>
