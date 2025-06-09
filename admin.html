@@ -480,6 +480,26 @@ document.getElementById("imagemInput").addEventListener("change", async (e) => {
   }
 });
 
+        async function uploadImagemEObterURL(file) {
+  const fileName = `${Date.now()}-${file.name}`;
+
+  const { data, error } = await supabase.storage
+    .from("imagens") // nome do bucket
+    .upload(fileName, file);
+
+  if (error) {
+    console.error("Erro ao fazer upload da imagem:", error.message);
+    return null;
+  }
+
+  // Agora pegamos a URL pública
+  const { data: publicUrlData } = supabase.storage
+    .from("imagens")
+    .getPublicUrl(fileName);
+
+  return publicUrlData.publicUrl;
+}
+
     
 </script>
 
