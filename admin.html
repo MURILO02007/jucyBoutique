@@ -224,8 +224,8 @@
             </div>
 
             <div class="form-group image-upload-container">
-                <label for="imagem-upload">Imagem do Produto:</label>
-                <input type="file" id="imagem-upload" name="imagem-upload" accept="image/*" required>
+                <label for="imagem-upload">URL da Imagem do Produto:</label>
+                <input type="url" id="imagem-upload" name="imagem-upload" accept="image/*" required>
                 <small id="imagem-atual-texto" style="display: none;">Imagem atual será mantida</small>
                 <div id="image-preview-container" style="display: none;">
                     <img id="image-preview" class="image-preview" src="#" alt="Pré-visualização da imagem">
@@ -481,16 +481,6 @@ document.getElementById("imagemInput").addEventListener("change", async (e) => {
 });
 
        
-(async () => {
-    const { data, error } = await supabase.from('produtos').select().limit(1);
-    if (error) {
-        console.error('Erro ao conectar no Supabase:', error.message);
-        alert('Erro na conexão com Supabase: ' + error.message);
-    } else {
-        console.log('Conectado com sucesso ao Supabase!');
-        alert('Conexão com Supabase funcionando!');
-    }
-})();
 
     
 </script>
