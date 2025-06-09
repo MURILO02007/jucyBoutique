@@ -348,15 +348,17 @@
         if (!editando && imagemInput.files.length === 0) return alert('Por favor, selecione uma imagem!');
 
         try {
-            let imagemBase64 = null;
-            if (imagemInput.files.length > 0) {
-                imagemBase64 = await getBase64(imagemInput.files[0]);
-            }
+            let imagemUrl = produtoEditando?.imagem ?? null;
 
-            const produto = {
-                preco,
-                categoria,
-                imagem: imagemBase64 || (produtoEditando?.imagem ?? null),
+if (imagemInput.files.length > 0) {
+    imagemUrl = await uploadImagem(imagemInput.files[0]);
+}
+
+const produto = {
+    preco,
+    categoria,
+    imagem: imagemUrl,
+
                 dataCadastro: editando && produtoEditando ? produtoEditando.dataCadastro : new Date().toISOString()
             };
 
@@ -429,6 +431,26 @@
     document.addEventListener('DOMContentLoaded', function () {
         atualizarListaProdutos();
     });
+
+    async function uploadImagem(file) {
+    const nomeArquivo = `${Date.now()}_${file.name}`;
+    const { data, error } = await supabase
+        .storage
+        .from('produtos')
+        .upload(nomeArquivo, file);
+
+    if (error) throw error;
+
+    const { data: urlData } = supabase
+        .storage
+        .from('produtos')
+        .getPublicUrl(nomeArquivo);
+
+    return urlData.publicUrl;
+}
+
+<small id="imagem-atual-texto" style="display: none;">Imagem atual será mantida</small>
+
 </script>
 
 </body>
