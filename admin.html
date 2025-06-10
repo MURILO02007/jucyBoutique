@@ -1,489 +1,237 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Administrador - Boutique da Jucy</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-        header {
-            background-color: #b8024d;
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .admin-container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.05);
-        }
-        h2, h3 {
-            color: #b8024d;
-            border-bottom: 2px solid #dee2e6;
-            padding-bottom: 0.5rem;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #b8024d;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-        input:focus, select:focus, textarea:focus {
-            border-color: #6c757d;
-            outline: none;
-        }
-        button {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background-color 0.3s;
-        }
-         .botao-cadastrar {
-            background-color: #02b830;
-            color: white;
-        }
-        .botao-cadastrar:hover {
-            background-color: #077c34;
-        }
-        .produtos-lista {
-            margin-top: 3rem;
-        }
-        .produto-item {
-            display: flex;
-            align-items: center;
-            padding: 1.5rem;
-            border-bottom: 1px solid #e9ecef;
-            transition: background-color 0.2s;
-        }
-        .produto-item:hover {
-            background-color: #f8f9fa;
-        }
-        .produto-info {
-            flex-grow: 1;
-            margin-left: 1.5rem;
-        }
-        .produto-imagem {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 4px;
-            border: 1px solid #dee2e6;
-        }
-        .produto-nome {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 0 0 0.5rem 0;
-            color: #212529;
-        }
-        .produto-detalhes {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .produto-preco {
-            font-weight: 700;
-            color: #28a745;
-        }
-        .produto-categoria {
-            background-color: #e9ecef;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-        }
-        .produto-descricao {
-            color: #6c757d;
-            margin: 0;
-        }
-        .botao-excluir {
-            background-color: #dc3545;
-            color: white;
-            margin-left: 1rem;
-        }
-        .botao-excluir:hover {
-            background-color: #c82333;
-        }
-        .botao-editar {
-            background-color: #ffc107;
-            color: #212529;
-            margin-left: 1rem;
-        }
-        .botao-editar:hover {
-            background-color: #e0a800;
-        }
-        .botao-cancelar {
-            background-color: #6c757d;
-            color: white;
-            margin-left: 1rem;
-        }
-        .botao-cancelar:hover {
-            background-color: #5a6268;
-        }
-        small {
-            color: #6c757d;
-            font-size: 0.85rem;
-            display: block;
-            margin-top: 0.25rem;
-        }
-        .empty-state {
-            text-align: center;
-            padding: 2rem;
-            color: #6c757d;
-        }
-        .form-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        @media (max-width: 768px) {
-            .produto-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .produto-info {
-                margin-left: 0;
-                margin-top: 1rem;
-            }
-            .botao-excluir, .botao-editar {
-                margin-left: 0;
-                margin-top: 1rem;
-                width: 100%;
-            }
-            .botoes-acoes {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-                gap: 0.5rem;
-            }
-        }
+  <meta charset="UTF-8">
+  <title>Admin - Cadastro de Produtos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
 
-        img.image-preview {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 4px;
-            margin-top: 0.5rem;
-        }
-    </style>
+    h1, h2 {
+      color: #333;
+    }
+
+    .form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      max-width: 400px;
+      margin-bottom: 40px;
+    }
+
+    input, select {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .produto {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px #ccc;
+      max-width: 400px;
+    }
+
+    .produto img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .produto p {
+      margin: 8px 0;
+    }
+
+    .btn-voltar {
+      display: inline-block;
+      margin-bottom: 20px;
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .btn-acao {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-editar {
+      background-color: #ffc107;
+    }
+
+    .btn-excluir {
+      background-color: #dc3545;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Área do Administrador - Boutique da Jucy</h1>
-        <nav>
-            <a href="index.html" style="color: white; text-decoration: none;">Voltar à Loja</a>
-        </nav>
-    </header>
 
-    <main class="admin-container">
-        <div class="form-title">
-            <h2>Gerenciar Produtos</h2>
-            <button id="botao-cancelar" class="botao-cancelar" style="display: none;">Cancelar Edição</button>
-        </div>
-        
-        <form id="form-produto" class="form-produto">
-            <input type="hidden" id="produto-id" name="produto-id">
-            
-            <div class="form-group">
-                <label for="preco">Preço (R$):</label>
-                <input type="number" id="preco" name="preco" step="0.01" min="0" required>
-            </div>
+  <a href="index.html" class="btn-voltar">← Voltar para Página Inicial</a>
 
-            <div class="form-group">
-                <label for="categoria">Categoria:</label>
-                <select id="categoria" name="categoria" required>
-                    <option value="">Selecione...</option>
-                    <option value="vestidos">Vestidos</option>
-                    <option value="blusas">Blusas</option>
-                    <option value="calcas">Calças</option>
-                    <option value="saias">Saias</option>
-                    <option value="acessorios">Acessórios</option>
-                </select>
-            </div>
+  <h1>Cadastro de Produtos</h1>
 
-            <div class="form-group image-upload-container">
-                <label for="imagem-upload">URL da Imagem do Produto:</label>
-                <input type="url" id="imagem-upload" name="imagem-upload" accept="image/*" required>
-                <small id="imagem-atual-texto" style="display: none;">Imagem atual será mantida</small>
-                <div id="image-preview-container" style="display: none;">
-                    <img id="image-preview" class="image-preview" src="#" alt="Pré-visualização da imagem">
-                </div>
-            </div>
+  <div class="form">
+    <label for="precoInput">Preço (R$):</label>
+    <input type="number" id="precoInput" placeholder="Ex: 59.90">
 
-            <button type="submit" class="botao-cadastrar">Salvar Produto</button>
-        </form>
+    <label for="imagemInput">URL da Imagem:</label>
+    <input type="text" id="imagemInput" placeholder="Cole a URL da imagem aqui">
 
-        <div class="produtos-lista">
-            <h3>Produtos Cadastrados</h3>
-            <div id="lista-produtos">
-                <!-- Lista de produtos será preenchida por JavaScript -->
-            </div>
-        </div>
-    </main>
+    <label for="categoriaInput">Categoria:</label>
+    <select id="categoriaInput">
+      <option value="">Selecione uma categoria</option>
+      <option value="Vestidos">Vestidos</option>
+      <option value="Blusas">Blusas</option>
+      <option value="Calças">Calças</option>
+      <option value="Saias">Saias</option>
+      <option value="Acessórios">Acessórios</option>
+    </select>
 
-    <script type="module">
-    // Inicializa Supabase
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    <button id="salvarBtn">Salvar Produto</button>
+  </div>
 
-    const supabaseUrl = 'https://fpjfzyfpsohiilloskay.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwamZ6eWZwc29oaWlsbG9za2F5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk0Mjc2NzksImV4cCI6MjA2NTAwMzY3OX0.6UFVde1wsHFgyBIwbonvm5wEzuwslRPmav_vW-4cPks';
-    const supabase = createClient(supabaseUrl, supabaseKey);
+  <h2>Produtos Cadastrados</h2>
+  <div id="produtosContainer"></div>
 
-    let editando = false;
-    let produtoEditando = null;
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      getDocs,
+      doc,
+      updateDoc,
+      deleteDoc
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    function getBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
+    const firebaseConfig = {
+      apiKey: "AIzaSyCBoLa4SFLteAn5_BkHon7geSMIeH65gC4",
+      authDomain: "roupasdejucy.firebaseapp.com",
+      projectId: "roupasdejucy",
+      storageBucket: "roupasdejucy.firebasestorage.app",
+      messagingSenderId: "770986332579",
+      appId: "1:770986332579:web:f098589711bb11a8ddca16",
+      measurementId: "G-805QB54FF7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function salvarProduto() {
+      const preco = parseFloat(document.getElementById("precoInput").value);
+      const imagem = document.getElementById("imagemInput").value.trim();
+      const categoria = document.getElementById("categoriaInput").value;
+
+      if (!preco || !imagem || !categoria) {
+        alert("Preencha todos os campos.");
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "produto"), {
+          preco: Number(preco),
+          imagem: imagem,
+          categoria: categoria
         });
+
+        alert("Produto salvo com sucesso!");
+        document.getElementById("precoInput").value = "";
+        document.getElementById("imagemInput").value = "";
+        document.getElementById("categoriaInput").value = "";
+
+        carregarProdutos();
+      } catch (error) {
+        console.error("Erro ao salvar produto:", error);
+        alert("Erro ao salvar produto.");
+      }
     }
-
-    document.getElementById('imagem-upload').addEventListener('change', function (e) {
-        const file = e.target.files[0];
-        if (file) {
-            const preview = document.getElementById('image-preview');
-            const container = document.getElementById('image-preview-container');
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                preview.src = e.target.result;
-                container.style.display = 'block';
-            }
-            reader.readAsDataURL(file);
-            document.getElementById('imagem-atual-texto').style.display = 'none';
-        }
-    });
-
-    async function salvarProduto(produto) {
-        if (produto.id) {
-            // Atualiza
-            const { error } = await supabase
-                .from('produtos')
-                .update(produto)
-                .eq('id', produto.id);
-
-            if (error) throw error;
-        } else {
-            // Insere
-            const { data, error } = await supabase
-                .from('produtos')
-                .insert([produto])
-                .select();
-
-            if (error) throw error;
-            produto.id = data[0].id;
-        }
-
-        return produto;
-    }
-
-    function carregarProdutoParaEdicao(produto) {
-        editando = true;
-        produtoEditando = produto;
-
-        document.getElementById('produto-id').value = produto.id;
-        document.getElementById('preco').value = produto.preco;
-        document.getElementById('categoria').value = produto.categoria;
-
-        const preview = document.getElementById('image-preview');
-        const container = document.getElementById('image-preview-container');
-        preview.src = produto.imagem;
-        container.style.display = 'block';
-
-        document.getElementById('imagem-atual-texto').style.display = 'block';
-        document.getElementById('imagem-upload').required = false;
-        document.querySelector('.botao-cadastrar').textContent = 'Atualizar Produto';
-        document.getElementById('botao-cancelar').style.display = 'block';
-
-        document.querySelector('form').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function cancelarEdicao() {
-        editando = false;
-        produtoEditando = null;
-
-        document.getElementById('form-produto').reset();
-        document.getElementById('produto-id').value = '';
-        document.getElementById('image-preview-container').style.display = 'none';
-        document.getElementById('imagem-atual-texto').style.display = 'none';
-        document.getElementById('imagem-upload').required = true;
-        document.querySelector('.botao-cadastrar').textContent = 'Salvar Produto';
-        document.getElementById('botao-cancelar').style.display = 'none';
-    }
-
-    document.getElementById('form-produto').addEventListener('submit', async function (e) {
-        e.preventDefault();
-
-        const id = document.getElementById('produto-id').value;
-        const preco = parseFloat(document.getElementById('preco').value);
-        const categoria = document.getElementById('categoria').value;
-        const imagemInput = document.getElementById('imagem-upload');
-
-        if (!preco || isNaN(preco)) return alert('Por favor, insira um preço válido!');
-        if (!categoria) return alert('Por favor, selecione uma categoria!');
-        if (!editando && imagemInput.files.length === 0) return alert('Por favor, selecione uma imagem!');
-
-        try {
-            let imagemBase64 = null;
-            if (imagemInput.files.length > 0) {
-                imagemBase64 = await getBase64(imagemInput.files[0]);
-            }
-
-            const produto = {
-                preco,
-                categoria,
-                imagem: imagemBase64 || (produtoEditando?.imagem ?? null),
-                dataCadastro: editando && produtoEditando ? produtoEditando.dataCadastro : new Date().toISOString()
-            };
-
-            if (editando) produto.id = parseInt(id);
-
-            await salvarProduto(produto);
-            cancelarEdicao();
-            atualizarListaProdutos();
-            alert('Produto salvo com sucesso!');
-        } catch (error) {
-            console.error('Erro ao salvar produto:', error);
-            alert('Erro ao salvar produto.');
-        }
-    });
-
-    document.getElementById('botao-cancelar').addEventListener('click', function (e) {
-        e.preventDefault();
-        cancelarEdicao();
-    });
 
     async function carregarProdutos() {
-        const { data, error } = await supabase.from('produtos').select().order('dataCadastro', { ascending: false });
-        if (error) {
-            console.error('Erro ao carregar produtos:', error);
-            return [];
-        }
-        return data;
-    }
+      const container = document.getElementById("produtosContainer");
+      container.innerHTML = "";
 
-    async function excluirProduto(id) {
-        if (!confirm('Tem certeza que deseja excluir este produto?')) return;
+      const querySnapshot = await getDocs(collection(db, "produto"));
+      querySnapshot.forEach((docSnapshot) => {
+        const data = docSnapshot.data();
+        const div = document.createElement("div");
+        div.classList.add("produto");
 
-        const { error } = await supabase.from('produtos').delete().eq('id', id);
-        if (error) {
-            console.error('Erro ao excluir:', error);
-            return alert('Erro ao excluir produto.');
-        }
+        div.innerHTML = `
+          <p><strong>Preço:</strong> R$ <span id="preco-${docSnapshot.id}">${data.preco.toFixed(2)}</span></p>
+          <p><strong>Categoria:</strong> ${data.categoria}</p>
+          <img src="${data.imagem}" alt="Imagem do Produto">
+          <button class="btn-acao btn-editar" onclick="editarPreco('${docSnapshot.id}', ${data.preco})">Editar Preço</button>
+          <button class="btn-acao btn-excluir" onclick="excluirProduto('${docSnapshot.id}')">Excluir</button>
+        `;
 
-        if (editando && produtoEditando?.id === id) cancelarEdicao();
-        atualizarListaProdutos();
-    }
-
-    async function atualizarListaProdutos() {
-        const produtos = await carregarProdutos();
-        const listaProdutos = document.getElementById('lista-produtos');
-
-        if (!produtos.length) {
-            listaProdutos.innerHTML = '<div class="empty-state">Nenhum produto cadastrado ainda.</div>';
-            return;
-        }
-
-        listaProdutos.innerHTML = produtos.map(produto => `
-            <div class="produto-item">
-                <img src="${produto.imagem}" alt="Produto ${produto.id}" class="produto-imagem">
-                <div class="produto-info">
-                    <div class="produto-detalhes">
-                        <span class="produto-preco">R$ ${produto.preco.toFixed(2)}</span>
-                        <span class="produto-categoria">${produto.categoria}</span>
-                    </div>
-                    <small>Cadastrado em: ${new Date(produto.dataCadastro).toLocaleDateString()}</small>
-                </div>
-                <div class="botoes-acoes">
-                    <button class="botao-editar" onclick='carregarProdutoParaEdicao(${JSON.stringify(produto)})'>Editar</button>
-                    <button class="botao-excluir" onclick="excluirProduto(${produto.id})">Excluir</button>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        atualizarListaProdutos();
-    });
-
-    async function uploadImagemEObterURL(file) {
-  const fileName = `${Date.now()}-${file.name}`; // cria nome único
-  
-  // Faz o upload
-  const { data, error } = await supabase.storage
-    .from("produtos")
-    .upload(fileName, file, {
-      cacheControl: "3600",
-      upsert: false,
-    });
-
-  if (error) {
-    console.error("Erro ao fazer upload:", error.message);
-    return null;
-  }
-
-  // Gera a URL pública
-  const { data: publicUrlData } = supabase
-    .storage
-    .from("produtos")
-    .getPublicUrl(fileName);
-
-  return publicUrlData.publicUrl; // aqui está a URL acessível
-}
-
-document.getElementById("imagemInput").addEventListener("change", async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  const imageUrl = await uploadImagemEObterURL(file);
-
-  if (imageUrl) {
-    console.log("Imagem pública:", imageUrl);
-
-    // Agora você pode salvar no banco:
-    const { error } = await supabase
-      .from("produtos")
-      .insert({
-        preco: 49.90,
-        imagem: imageUrl, // salva a URL pública
+        container.appendChild(div);
       });
-
-    if (error) {
-      console.error("Erro ao salvar produto:", error.message);
-    } else {
-      alert("Produto salvo com sucesso!");
     }
-  }
-});
 
-       
+    window.editarPreco = async function (id, precoAtual) {
+      const novoPreco = prompt("Digite o novo preço:", precoAtual);
+      if (novoPreco === null || novoPreco === "") return;
 
-    
-</script>
+      try {
+        await updateDoc(doc(db, "produto", id), {
+          preco: parseFloat(novoPreco)
+        });
+        alert("Preço atualizado com sucesso!");
+        carregarProdutos();
+      } catch (error) {
+        console.error("Erro ao atualizar preço:", error);
+        alert("Erro ao atualizar preço.");
+      }
+    };
+
+    window.excluirProduto = async function (id) {
+      if (!confirm("Tem certeza que deseja excluir este produto?")) return;
+
+      try {
+        await deleteDoc(doc(db, "produto", id));
+        alert("Produto excluído com sucesso!");
+        carregarProdutos();
+      } catch (error) {
+        console.error("Erro ao excluir:", error);
+        alert("Erro ao excluir produto.");
+      }
+    };
+
+    document.getElementById("salvarBtn").addEventListener("click", salvarProduto);
+    window.onload = carregarProdutos;
+  </script>
 
 </body>
 </html>
