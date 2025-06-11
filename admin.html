@@ -5,123 +5,294 @@
   <title>Admin - Cadastro de Produtos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --primary-color: #b8024d;
+      --secondary-color: #6e002e;
+      --success-color: #4cc9f0;
+      --danger-color: #f72525;
+      --warning-color: #f86a1e;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: var(--dark-color);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 20px;
     }
-
-    h1, h2 {
-      color: #333;
+    
+    header {
+      background-color: white;
+      box-shadow: var(--box-shadow);
+      padding: 20px 0;
+      margin-bottom: 30px;
     }
-
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    h1, h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 10px;
+      margin-top: 40px;
+    }
+    
+    .btn-voltar {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 10px 15px;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .btn-voltar:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+    
+    .btn-voltar::before {
+      content: "←";
+      margin-right: 5px;
+    }
+    
+    .form-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
     .form {
       background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
-      max-width: 400px;
-      margin-bottom: 40px;
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      flex: 1;
+      min-width: 300px;
     }
-
-    input, select {
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
       display: block;
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0 20px;
-      border-radius: 5px;
-      border: 1px solid #ddd;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark-color);
     }
-
+    
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+    
     button {
-      background-color: #28a745;
+      background-color: var(--primary-color);
       color: white;
       border: none;
       padding: 12px;
-      width: 100%;
-      border-radius: 5px;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
     }
-
+    
     button:hover {
-      background-color: #218838;
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
     }
-
+    
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
     .produto {
       background: white;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 5px #ccc;
-      max-width: 400px;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
     }
-
+    
+    .produto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
     .produto img {
-      max-width: 100%;
-      border-radius: 8px;
-    }
-
-    .produto p {
-      margin: 8px 0;
-    }
-
-    .btn-voltar {
-      display: inline-block;
-      margin-bottom: 20px;
-      background: #007bff;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-    }
-
-    .btn-acao {
-      margin-top: 10px;
       width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      margin-bottom: 15px;
+    }
+    
+    .produto p {
+      margin-bottom: 10px;
+    }
+    
+    .produto-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .btn-acao {
+      flex: 1;
       padding: 10px;
-      border-radius: 5px;
+      border-radius: var(--border-radius);
       color: white;
       border: none;
       cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
     }
-
+    
+    .btn-acao:hover {
+      transform: translateY(-2px);
+    }
+    
     .btn-editar {
-      background-color: #ffc107;
+      background-color: var(--warning-color);
     }
-
+    
+    .btn-editar:hover {
+      background-color: #e07c0b;
+    }
+    
     .btn-excluir {
-      background-color: #dc3545;
+      background-color: var(--danger-color);
+    }
+    
+    .btn-excluir:hover {
+      background-color: #e51778;
+    }
+    
+    .imgur-link {
+      display: inline-block;
+      background-color: #1bb76e;
+      color: white;
+      padding: 10px 15px;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    
+    .imgur-link:hover {
+      background-color: #16a362;
+      transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .form-container {
+        flex-direction: column;
+      }
+      
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
+  <header>
+    <div class="container header-content">
+      <a href="index.html" class="btn-voltar">Voltar para Página Inicial</a>
+      <h1> Cadastro de Produtos</h1>
+    </div>
+  </header>
 
-  <a href="index.html" class="btn-voltar">← Voltar para Página Inicial</a>
+  <main class="container">
+    <a href="https://imgur.com/upload" class="imgur-link" target="_blank">Upload de Imagem para URL</a>
+    
+    <div class="form-container">
+      <div class="form">
+        <h2>Adicionar Novo Produto</h2>
+        <div class="form-group">
+          <label for="precoInput">Preço (R$)</label>
+          <input type="number" id="precoInput" placeholder="Ex: 59.90" step="0.01">
+        </div>
+        
+        <div class="form-group">
+          <label for="imagemInput">URL da Imagem</label>
+          <input type="text" id="imagemInput" placeholder="Cole a URL da imagem aqui">
+        </div>
+        
+        <div class="form-group">
+          <label for="categoriaInput">Categoria</label>
+          <select id="categoriaInput">
+            <option value="">Selecione uma categoria</option>
+            <option value="Vestidos">Vestidos</option>
+            <option value="Blusas">Blusas</option>
+            <option value="Calças">Calças</option>
+            <option value="Saias">Saias</option>
+            <option value="Acessórios">Acessórios</option>
+          </select>
+        </div>
+        
+        <button id="salvarBtn">Salvar Produto</button>
+      </div>
+    </div>
 
-  <h1>Cadastro de Produtos</h1>
-
-  <div class="form">
-    <label for="precoInput">Preço (R$):</label>
-    <input type="number" id="precoInput" placeholder="Ex: 59.90">
-
-    <label for="imagemInput">URL da Imagem:</label>
-    <input type="text" id="imagemInput" placeholder="Cole a URL da imagem aqui">
-
-    <label for="categoriaInput">Categoria:</label>
-    <select id="categoriaInput">
-      <option value="">Selecione uma categoria</option>
-      <option value="Vestidos">Vestidos</option>
-      <option value="Blusas">Blusas</option>
-      <option value="Calças">Calças</option>
-      <option value="Saias">Saias</option>
-      <option value="Acessórios">Acessórios</option>
-    </select>
-
-    <button id="salvarBtn">Salvar Produto</button>
-  </div>
-
-  <h2>Produtos Cadastrados</h2>
-  <div id="produtosContainer"></div>
+    <h2>Produtos Cadastrados</h2>
+    <div id="produtosContainer" class="products-grid"></div>
+  </main>
 
   <!-- Firebase SDK -->
   <script type="module">
@@ -155,7 +326,7 @@
       const categoria = document.getElementById("categoriaInput").value;
 
       if (!preco || !imagem || !categoria) {
-        alert("Preencha todos os campos.");
+        alert("Por favor, preencha todos os campos.");
         return;
       }
 
@@ -163,10 +334,11 @@
         await addDoc(collection(db, "produto"), {
           preco: Number(preco),
           imagem: imagem,
-          categoria: categoria
+          categoria: categoria,
+          createdAt: new Date()
         });
 
-        alert("Produto salvo com sucesso!");
+        alert("Produto cadastrado com sucesso!");
         document.getElementById("precoInput").value = "";
         document.getElementById("imagemInput").value = "";
         document.getElementById("categoriaInput").value = "";
@@ -174,35 +346,50 @@
         carregarProdutos();
       } catch (error) {
         console.error("Erro ao salvar produto:", error);
-        alert("Erro ao salvar produto.");
+        alert("Ocorreu um erro ao salvar o produto. Por favor, tente novamente.");
       }
     }
 
     async function carregarProdutos() {
       const container = document.getElementById("produtosContainer");
-      container.innerHTML = "";
+      container.innerHTML = "<p>Carregando produtos...</p>";
 
-      const querySnapshot = await getDocs(collection(db, "produto"));
-      querySnapshot.forEach((docSnapshot) => {
-        const data = docSnapshot.data();
-        const div = document.createElement("div");
-        div.classList.add("produto");
+      try {
+        const querySnapshot = await getDocs(collection(db, "produto"));
+        
+        if (querySnapshot.empty) {
+          container.innerHTML = "<p>Nenhum produto cadastrado ainda.</p>";
+          return;
+        }
 
-        div.innerHTML = `
-          <p><strong>Preço:</strong> R$ <span id="preco-${docSnapshot.id}">${data.preco.toFixed(2)}</span></p>
-          <p><strong>Categoria:</strong> ${data.categoria}</p>
-          <img src="${data.imagem}" alt="Imagem do Produto">
-          <button class="btn-acao btn-editar" onclick="editarPreco('${docSnapshot.id}', ${data.preco})">Editar Preço</button>
-          <button class="btn-acao btn-excluir" onclick="excluirProduto('${docSnapshot.id}')">Excluir</button>
-        `;
+        container.innerHTML = "";
+        
+        querySnapshot.forEach((docSnapshot) => {
+          const data = docSnapshot.data();
+          const div = document.createElement("div");
+          div.classList.add("produto");
 
-        container.appendChild(div);
-      });
+          div.innerHTML = `
+            <img src="${data.imagem}" alt="Imagem do Produto">
+            <p><strong>Preço:</strong> R$ <span id="preco-${docSnapshot.id}">${data.preco.toFixed(2)}</span></p>
+            <p><strong>Categoria:</strong> ${data.categoria}</p>
+            <div class="produto-actions">
+              <button class="btn-acao btn-editar" onclick="editarPreco('${docSnapshot.id}', ${data.preco})">Editar</button>
+              <button class="btn-acao btn-excluir" onclick="excluirProduto('${docSnapshot.id}')">Excluir</button>
+            </div>
+          `;
+
+          container.appendChild(div);
+        });
+      } catch (error) {
+        console.error("Erro ao carregar produtos:", error);
+        container.innerHTML = "<p>Erro ao carregar produtos. Recarregue a página.</p>";
+      }
     }
 
     window.editarPreco = async function (id, precoAtual) {
       const novoPreco = prompt("Digite o novo preço:", precoAtual);
-      if (novoPreco === null || novoPreco === "") return;
+      if (novoPreco === null || novoPreco === "" || isNaN(novoPreco)) return;
 
       try {
         await updateDoc(doc(db, "produto", id), {
@@ -212,26 +399,25 @@
         carregarProdutos();
       } catch (error) {
         console.error("Erro ao atualizar preço:", error);
-        alert("Erro ao atualizar preço.");
+        alert("Erro ao atualizar preço. Tente novamente.");
       }
     };
 
     window.excluirProduto = async function (id) {
-      if (!confirm("Tem certeza que deseja excluir este produto?")) return;
+      if (!confirm("Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.")) return;
 
       try {
         await deleteDoc(doc(db, "produto", id));
         alert("Produto excluído com sucesso!");
         carregarProdutos();
       } catch (error) {
-        console.error("Erro ao excluir:", error);
-        alert("Erro ao excluir produto.");
+        console.error("Erro ao excluir produto:", error);
+        alert("Erro ao excluir produto. Tente novamente.");
       }
     };
 
     document.getElementById("salvarBtn").addEventListener("click", salvarProduto);
     window.onload = carregarProdutos;
   </script>
-
 </body>
 </html>
